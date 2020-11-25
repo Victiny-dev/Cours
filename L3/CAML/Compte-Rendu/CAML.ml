@@ -260,7 +260,7 @@ let x,y,z = apres(d,m,y) in
 
 let rec pgChif = fun (n) -> 
 
-let max = fun (a,b) -> 
+let max = fun (a,b ) -> 
 if a>b then a else b in
 
 if n < 10 then n else 
@@ -268,3 +268,16 @@ let x = n mod 10 in
 	let y = pgChif(n/10) in
 		max(x, y);;  
 
+
+let rec ajouTete = fun (a,b) ->
+if a < 10 then a + 10*b else a mod 10 + 10*ajouTete(a/10,b) ;;
+
+let rec miroir = fun (c) ->
+if c < 10 then c else ajouTete(miroir(c/10),c mod 10) ;;
+
+let palindrome = fun (d) ->
+d = miroir(d) ;;
+
+
+let rec appartient = fun
+()

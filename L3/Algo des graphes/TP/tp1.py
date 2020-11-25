@@ -10,31 +10,50 @@ import unittest
 # |_|(_)|_|
 #          
 def nbSommets(G):
-	#TODO
-	return 0
+	return len(G)
 
 def nbAretes(G):
-	#TODO
-	return 0
+	arete = 0 
+	for i in G:
+		for j in G[i] :
+			if i == j :
+				arete+= 2
+			else : 
+				arete+=1
+	return arete/2
 
 def ajoutArete(G, i, j):
-	#TODO
+	G[i].append(j) 
+	if i != j:
+		G[j].append(i)
 	pass
 
 def enleveArete(G, i, j):
-	#TODO
-	raise ValueError("L'arête n'existe pas")
+	if j not in G[i] :
+		raise ValueError("L'arête n'existe pas")
+	else:	
+		G[j].remove(i)
+		if i!=j :
+			G[i].remove(j)
 
 def deg(G, i):
-	#TODO
-	return 0
+	return len(G[i])
 
 def degre(G):
-	#TODO
-	return 0
+	D=dict()
+	for i in G:
+		D[i] = len(G[i])
+	return D
 
 def kuratowski(n):
-	return {}
+	G= {}
+	for i in range(1,n+1): 
+		tabT=[]
+		for j in range(1,n+1):
+			if i!=j:
+				tabT.append(j)
+		G[i] = tabT
+	return G
 	
 # __     ___  
 #/_ |   |__ \ 
@@ -45,8 +64,18 @@ def kuratowski(n):
 #
 
 def areteToListe(L):
-	#TODO
-	return {}
+	G={}
+	for i in L:	
+		if i[0] not in G:
+			G[i[0]]= [i[1]]
+		else:
+			G[i[0]].append(i[1])
+		if i[0]!=i[1] : 
+			if i[1] not in G:
+				G[i[1]]= [i[0]]
+			else:
+				G[i[1]].append(i[0])
+	return G
 	
 def listeToMatrice(G,n):
 	M = [ [ 0 for i in range(n) ] for j in range(n) ]
@@ -140,7 +169,7 @@ class GrapheTest(unittest.TestCase):
 	def testAreteToListe(self):
 		self.assertEqual(areteToListe(self.liste), self.LAdj)
 
-	def testListeToMatrice(self):
+"""	def testListeToMatrice(self):
 		self.assertEqual(listeToMatrice(self.LAdj, 5), self.matrice)
 
 	def testNonOriente(self):
@@ -150,6 +179,7 @@ class GrapheTest(unittest.TestCase):
 		
 	def testMatToListe(self):
 		self.assertEqual(matToListe(self.matrice), self.LAdj)
+"""
 
 if __name__ == '__main__':
     unittest.main()
