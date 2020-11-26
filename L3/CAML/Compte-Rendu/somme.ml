@@ -101,8 +101,8 @@ type expArithm = Nb of int
 let exp =Oper(`+`,Oper (`*`,Oper (`+`,Nb 0, Nb 1),Nb 2),Oper(`/`,Nb 2, Oper(`-`,Nb 1 , Nb 2))) ;;
 
 let rec nbOper = fun 
-(Nb x) -> 0
-|(Oper (a,b,c)) -> 1 + nbOper(b) + nbOper(c) ;;
+(Nb _) -> 0
+|(Oper (_,b,c)) -> 1 + nbOper(b) + nbOper(c) ;;
 
 let rec evalue = fun 
 (Nb x) -> x
@@ -110,5 +110,23 @@ let rec evalue = fun
 |(Oper (`-`,b,c)) ->evalue(b) - evalue(c)
 |(Oper (`*`,b,c)) ->evalue(b) * evalue(c)
 |(Oper (`/`,b,c)) ->evalue(b) / evalue(c) ;;
+
+type objet = Chat|Clown|Mouton ;;
+type mobile = Feuille of objet| Noeud of (int*int*mobile*mobile) ;;
+
+let poids_f = fun
+Chat -> 1 
+| Clown -> 3
+| Mouton -> 2 ;;
+
+let fait_mob_simple = fun (n,x) -> Noeud(n,n,Feuille x, Feuille x) ;;
+
+let rec poids_m = fun 
+(Feuille x) -> poids_f(x)
+|(Noeud (_,_,o1,o2)) -> poids_m(o1) + poids_m(o2) ;;
+
+let rec agrandir_m = fun
+(Feuille x) -> Feuille x
+|(Noeud (a,b,o1,o2)) -> Noeud(2*a,2*b,agrandir_m(o1),agrandir_m(o2)) ;;
 
 
