@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+	<title>Concerts</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+
+			function validation(x) {
+				var y = $("#"+x)
+				if (y != ""){
+					$("#"+x).removeClass('is-invalid')
+				}
+			}
+			function validation2(x) {
+				var y = document.getElementById(""+x)
+				if (y != ""){
+					document.getElementById(x).classList.remove('is-invalid')
+				}
+			}
+		$(document).ready(function () {
+
+			$('.supprimer').click(function () {
+				$(this).parents('tr').remove();
+				alert('Date supprimée !');
+			});
+			$('#zbi').append("7")
+			$('#formAjout').submit(function (event) {
+				event.preventDefault();
+				var ville = $('#ville').val();
+				var dep = $('#dep').val();
+				var lieu = $('#lieu').val();
+				var date = $('#date').val();
+				var heure = $('#heure').val();
+
+				var nbConcert = parseInt($('#zbi').text(),10) +1 ;
+
+				$('#tabDates').append("<tr>" +
+					"<td>" + ville + "</td>" +
+					"<td>" + dep + "</td>" +
+					"<td>" + lieu + "</td>" +
+					"<td>" + date + "</td>" +
+					"<td>" + heure + "</td>" +
+					"<td><a href='#' class='supprimer'>supprimer</a></td>" +
+					"</tr>");
+
+				$('.supprimer:last').click(function () {
+					$(this).parents('tr').remove();
+					alert('Date supprimée !');
+				});
+				
+				$('#zbi').empty()
+				$('#zbi').append(nbConcert)
+				$('#formAjout input').val('');
+				alert('Date ajoutée avec succès !');
+			});
+
+			
+
+			$('#aide').click(function (event) {
+				event.preventDefault();
+				window.open($(this).attr('href'), "popupWindow", "menubar=no, status=no, scrollbars=no, menubar=no, width=600, height=400");
+			});
+
+		});
+
+	</script>
+</head>
+
+<body>
+	
+	<div class="container">
+		<div class="row border border-grey">
+			<h1> &nbsp Dates de concert  <span id="zbi" class="badge badge-primary rounded-circle">  </span> </h1>
+			
+		</div>
+		<div class="row border border-grey">
+			<div class="col-12">
+				<h2>Ajouter une date</h2>
+			</div>
+			<form class="col-12" id="formAjout" role="form">
+				<div class="form-row">
+					<div class="form-group col-4">
+						<label for="ville">Ville</label> <br/>
+						<input class="col-12 form-control is-invalid" id="ville" type="text" placeholder="La ville du concert" onblur="validation('ville');" required>
+					</div>
+					<div class="form-group col-3">
+						<label for="dep">Dép.</label> <br/>
+						<input class="col-12 " id="dep" type="number" min="0" placeholder="ex : 81 ?" required>
+					</div>
+					<div class="form-group col-5">
+						<label for="lieu">Lieu/Salle</label> <br/>
+						<input class="col-12 form-control is-invalid" id="lieu" type="text" onblur="validation('lieu');" placeholder="Dans quelle salle le concert a-t-il lieu ?" required>
+					</div>
+				</div>
+				<div class="form-row align-items-center">
+					<div class="form-group col-3">
+						<label for="date">Date</label> <br/>
+						<input class="col-12 form-control is-invalid" id="date" type="date" onblur="validation('date');" placeholder="Date du concert" required>
+					</div>
+					<div class="form-group col-3">
+						<label for="heure">Heure</label> <br/>
+						<input class="col-12 form-control is-invalid" id="heure" type="time" onblur="validation('heure');" placeholder="Heure de début" required>
+					</div>
+				</div>
+				<div class="form-row align-items-center">
+					<button class="btn btn-primary" type="submit">Ajouter</button>&nbsp;<a id="aide" href="aide.html">Aide</a>
+				</div>
+			</form>
+		</div>
+		<div class="row border border-grey">
+			<table id="tabDates" class="table">
+				<tr class="thead-dark">
+					<th>Ville</th>
+					<th>Dép.</th>
+					<th>Lieu/Salle</th>
+					<th>Date</th>
+					<th>Heure</th>
+					<th>Supprimer</th>
+				</tr>
+				<tr>
+					<td>Rennes</td>
+					<td>35</td>
+					<td>L'étage</td>
+					<td>28/02/2019</td>
+					<td>20h00</td>
+					<td><a href="#" class="supprimer">supprimer</a></td>
+				</tr>
+				<tr>
+					<td>Le Mans</td>
+					<td>72</td>
+					<td>L'oasis</td>
+					<td>19/02/2019</td>
+					<td>20h00</td>
+					<td><a href="#" class="supprimer">supprimer</a></td>
+				</tr>
+				<tr>
+					<td>Niort</td>
+					<td>79</td>
+					<td>Le Loup Blanc</td>
+					<td>20/02/2019</td>
+					<td>20h30</td>
+					<td><a href="#" class="supprimer">supprimer</a></td>
+				</tr>
+				<tr>
+					<td>Paris</td>
+					<td>75</td>
+					<td>Le Bataclan</td>
+					<td>04/03/2019</td>
+					<td>19h30</td>
+					<td><a href="#" class="supprimer">supprimer</a></td>
+				</tr>
+				<tr>
+					<td>Reims</td>
+					<td>51</td>
+					<td>La Cartonnerie</td>
+					<td>13/03/2019</td>
+					<td>20h00</td>
+					<td><a href="#" class="supprimer">supprimer</a></td>
+				</tr>
+				<tr>
+					<td>Lille</td>
+					<td>59</td>
+					<td>L'Aéronef</td>
+					<td>14/03/2019</td>
+					<td>20h00</td>
+					<td><a href="#" class="supprimer">supprimer</a></td>
+				</tr>
+				<tr>
+					<td>Nantes</td>
+					<td>44</td>
+					<td>La Fabrique</td>
+					<td>19/03/2019</td>
+					<td>20h30</td>
+					<td><a href="#" class="supprimer">supprimer</a></td>
+				</tr>
+			</table>
+		</div>
+		<div class="row border border-grey">
+			<p>&copy; INU Champollion 2019</p>
+		</div>
+	</div>
+</body>
+
+</html>

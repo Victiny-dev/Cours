@@ -1,0 +1,23 @@
+version: "2"
+services:
+  nodeserver:
+    container_name: aamsif_node
+    image: "node:alpine"
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - ./node:/home/node/app
+    ports:
+      - "10042:3000"
+    command: "npm start"
+    links:
+      - mongodb
+  mongodb:
+    container_name: aamsif_mongodb
+    image: "mongo:4.0"
+    volumes:
+      - db_volume:/data/db
+
+volumes:
+  db_volume:
+    external: true

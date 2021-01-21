@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<style>
+
+table {
+	background-color : #00f;
+	margin: 20px;
+	padding:15px;
+}
+
+td.case {
+	width: 80px;
+	height: 80px;
+	background-color: #fff;
+	border-radius: 50%
+}
+
+td.case.col_1 {
+	background-color: #f00;
+}
+
+td.case.col_2 {
+	background-color: #ff0;
+}
+
+td.control {
+	font-size: 150%;
+	color: #00c	;	
+	height: 50px;
+	text-align: center;
+	cursor: pointer;
+	user-select: none;
+}
+
+td.control:hover {
+	font-size: 200%;
+	color: #fff;
+}
+
+tr.disabled td.control {
+	visibility: hidden;
+}
+
+
+</style>
+
+<body>
+<table id="gameBoard"></table>
+<button id="resetGame">Reset</button>
+<input id="toggleControls" type="checkbox" name="aquoi" value="çasert">Contrôles</>
+
+</body>
+<script>
+
+	const width = 7;
+	const height = 6;
+	
+	var player = 1; //(1<->2)
+	
+	//data
+	var data = new Array(width);
+	for (let i=0; i<width; i++) {
+		data[i] = [];
+	}
+	
+	//view
+	let boardRow = $('<tr id="controls" class="disabled"></tr>');
+	for (let i=0; i<width; i++) {
+		$('<td class="control" data-col="'+i+'">&#9660;</td>').click(function() {
+			let col = $(this).attr('data-col');
+			let row = data[col].length;
+			if (row < height) {
+				//Update data
+				data[col].push(player);
+				player = 3 - player;
+				//Update view
+				$("#gameBoard tr:nth("+(height-row)+") td:nth("+col+")").addClass("col_"+player);
+			}
+		}).appendTo(boardRow);	
+	}
+	$('#gameBoard').append(boardRow);
+	for (let i=0; i<height; i++) {
+		let boardRow = $('<tr></tr>');
+		for (let j=0; j<width; j++) {
+			$('<td class="case col_'+data[i][j]+'"></td>').appendTo(boardRow);
+		}
+		$('#gameBoard').append(boardRow);
+	}
+	
+	/* ------------------------------------------ */
+	
+	$('#resetGame').click(function() {
+		//Clear data
+		for (let i=0; i<width; i++) {
+			data[i] = []
+		}
+		//Clear view
+		for (let i=1; i<=height; i++) {
+			for (let j=0; j<width; j++) {
+				$('#gameBoard tr:nth('+i+') td:nth('+j+')').removeClass("col_1 col_2");
+			}
+		}
+	});
+
+	$('#toggleControls').change(function () {
+		$("#controls").toggleClass('disabled');
+	});
+
+</script>
+</html>

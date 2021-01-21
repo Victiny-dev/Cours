@@ -1,0 +1,8 @@
+continents = [
+    {nom: "Afrique", population: 1340 },
+    {nom: "Amerique", population: 800 },
+    {nom: "Asie", population: 4641 },
+    {nom: "Europe", population: 747 },
+    {nom: "Oceanie", population: 42 }
+]
+    

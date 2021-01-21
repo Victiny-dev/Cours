@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+  <head>  
+    <meta charset='utf-8'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    <script type="text/javascript">
+      messages = [
+        { 
+          user:'Estragon',
+          time: '10:56:37',
+          content: "Tu m'as fait peur"
+        },
+        {
+          user:'Vladimir',
+          time: '10:56:55',
+          content: "J'ai cru que c'était lui"
+        },
+        {
+          user:'Estragon',
+          time: '10:57:09',
+          content: "Qui ?"
+        },
+        {
+          user: 'Vladimir',
+          time: '10:57:15',
+          content: "Godot"
+        },
+        {
+          user: 'Estragon',
+          time: '10:57:47',
+          content: "Pah ! Le vent dans les roseaux"
+        }
+      ];
+
+      var appendMessage = function(message) {
+        let divMessage = $("<div class='message'></div>");
+        $(divMessage).append(`<div class='time'>${message.time}</div>`);
+        $(divMessage).append(`<div class='user'>${message.user}</div>`);
+        $(divMessage).append(`<div class='content'>${message.content}</div>`);
+        $(divMessage).appendTo('#feed');
+      }
+
+      $(document).ready(function() {
+
+        var username = window.prompt("What is your name ?","anonymous");
+
+        messages.forEach(function(m) {
+          appendMessage(m);
+        });
+
+        $('#sendMessage').submit(function(e) {
+          e.preventDefault();
+          let message = {
+            time: new Date().toLocaleTimeString(),
+            user: username,
+            content: $('#message').val()
+          };
+          appendMessage(message);
+          $("#message").val('');
+        });
+
+        //io stuff here
+    });
+
+    </script>
+    <style>
+      div.message { }
+      div.message>div {
+        display: inline-block;
+        margin: 5px;
+      }
+      div.message>.user {
+        font-weight: bold;
+      }
+      div.message>.time {
+        color: #888; 
+      }
+      div.message>.content { }
+    </style>
+  </head>
+  <body class="ui container">
+    <div id="feed" class="ui feed"></div>
+    <form id='sendMessage'>
+      <div class="ui form">
+        <div class="two fields">
+          <div class="field">
+            <input id="message" type="text" placeholder="type message here...">
+          </div>
+          <div class="field">
+            <input type="submit" class="ui button" value="Send">
+          </div>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>

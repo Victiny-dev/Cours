@@ -1,0 +1,24 @@
+doctype html
+html(lang=fr)
+	head
+		meta(charset="UTF-8")
+		link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css")
+		title= pageTitle
+	body.ui.container
+	div.ui.segment
+		img.ui.left.floated.image(src=image)
+		h1 #{nomCommun}
+		h4 #{type}
+		p #{description}
+		table.ui.definition.collapsing.table
+			tr
+				td période
+				td #{periode}
+			tr
+				td poids
+				td #{poids}
+			tr
+				td longueur
+				td #{longueur}
+
+

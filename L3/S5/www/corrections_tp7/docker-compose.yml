@@ -1,0 +1,12 @@
+version: "2"
+services:
+  nodeserver:
+    container_name: aaamsif_node
+    image: "node:alpine"
+    user: "node"
+    working_dir: /home/app
+    volumes:
+      - ./:/home/app
+    ports:
+      - "10001:3000"
+    command: npm start

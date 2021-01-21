@@ -1,0 +1,26 @@
+table {
+    margin: 0;
+    background-color: #FFFFFF;
+    border: 2px solid #333333;
+    border-collapse: collapse;
+}
+
+td,
+th {
+    border-bottom: 1px solid #333333;
+    padding: 6px 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #EEEEEE;
+    font-weight: bold;
+    font-size: 120%;
+}
+
+.croissante {
+    background-color: lightgreen;
+}
+.decroissante {
+    background-color: coral;
+}

@@ -1,0 +1,23 @@
+version: "2"
+services:
+  nodeserver:
+    container_name: mhazm_node
+    image: "node:alpine"
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - ./node:/home/node/app
+    ports:
+      - "10069:3000"
+    command: "npm start"
+    links:
+      - mongodb
+  mongodb: 
+    container_name: mhazm_mongodb
+    image: "mongo:4.0"
+    volumes:
+      - db_volume:/data/db
+
+volumes:
+  db_volume:
+    external: true

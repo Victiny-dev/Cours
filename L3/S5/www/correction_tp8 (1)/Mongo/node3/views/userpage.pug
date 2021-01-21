@@ -1,0 +1,54 @@
+doctype html
+html(lang=fr)
+	head
+		meta(charset="UTF-8")
+		link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+		title= pageTitle
+	body.ui.container
+	table.ui.collapsing.table
+		thead
+			tr
+				th Username
+				th Administrator
+				th
+		tbody
+			each user in users
+				tr
+					td #{user.username}
+					td 
+						if user.admin
+							i.check.icon
+					#{user.admin}
+					td 
+						i.trash.alternate.icon
+						
+			tr
+				form#newUser
+					td 
+						div.ui.input
+							input(type="text" name="username" placeholder="Enter new username")
+					td 
+						div.ui.checkbox
+							input(type="checkbox" name="admin")
+							label administrator
+					td
+						input.ui.primary.button(type="submit" value="Insert")
+	script.
+		console.log("render terminé");
+		$("#newUser").submit(function(e) {
+			e.preventDefault();
+			console.log("envoi du formulaire");
+			$.ajax({
+				type: 'GET',
+				url: 'addUser',
+				dataType: 'json',
+				data: $(this).serialize(),
+				success: function(data) {
+					if (data.status==0) location.reload();
+				},
+				error: function() {
+					console.log('something wrong happened');
+				}
+			});
+		});

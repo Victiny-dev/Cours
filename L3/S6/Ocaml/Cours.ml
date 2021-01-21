@@ -1,0 +1,1 @@
+let egale (a::b:int) = function -> a=b ;;
